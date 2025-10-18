@@ -30,6 +30,8 @@ output/
 results/
 checkpoints/
 models/
+!results/.gitkeep
+!models/.gitkeep
 logs/
 wandb/
 runs/
@@ -40,19 +42,13 @@ cache/
 *.tmp
 *.log
 
-# Images/videos/large artifacts
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.tif
-*.tiff
-*.bmp
+# Images/videos
 *.mp4
 *.mov
 *.avi
 *.mkv
 *.webm
+# Model weights and large binaries
 *.pth
 *.pt
 *.ckpt
