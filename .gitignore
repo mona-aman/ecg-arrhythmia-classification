@@ -1,0 +1,90 @@
+# OS / IDE
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+.venv/
+venv/
+.env*
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Data & outputs (keep code light)
+data/
+Data/
+datasets/
+Datasets/
+outputs/
+output/
+results/
+checkpoints/
+models/
+logs/
+wandb/
+runs/
+cache/
+.tmp/
+.tmp*/
+.tmp*/
+*.tmp
+*.log
+
+# Images/videos/large artifacts
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.tif
+*.tiff
+*.bmp
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.pth
+*.pt
+*.ckpt
+*.bin
+*.npz
+*.npy
+*.h5
+*.onnx
+*.tar
+*.tar.gz
+*.zip
+*.7z
+
+# Misc
+*.bak
+*.old
+*.orig
+
+# Local configs/keys
+*.secret*
+*.key
+*.pem
+kaggle.json
+
+# C/C++/Build
+build/
+dist/
+*.so
+*.o
+*.a
+
+# Slurm/logs
+slurm-*.out
+*.out
+*.err

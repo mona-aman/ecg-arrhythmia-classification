@@ -1,0 +1,35 @@
+# Quick test configuration for 1D transformer
+# Full dataset training on GPU
+
+# Model configuration - these need to match the command line argument names
+model-type: "1d"
+model-size: "small"
+
+# Data paths  
+data-dir: "/ocean/projects/cis250019p/maman/ecg-arrhythmia-classification/data/processed"
+output-dir: "/ocean/projects/cis250019p/maman/ecg-arrhythmia-classification/outputs/test_runs"
+
+# Training configuration 
+batch-size: 16               # Reduced batch size for memory constraints
+num-epochs: 1               # More epochs for meaningful results
+learning-rate: 0.0001
+weight-decay: 0.01
+warmup-epochs: 2             # Reasonable warmup
+
+# Training settings
+use-class-weights: true
+augment-train: true
+mixed-precision: true
+gradient-clip-val: 1.0
+
+# Early stopping 
+patience: 5                  # Reduced patience for testing
+min-delta: 0.001
+
+# Hardware
+device: "cuda"               # Use GPU
+num-workers: 4
+
+# Logging
+log-interval: 1            # Standard logging interval
+save-best-only: true

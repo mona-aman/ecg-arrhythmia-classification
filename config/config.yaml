@@ -1,0 +1,139 @@
+# ECG Arrhythmia Classification Configuration
+
+# Data paths
+data:
+  raw_dir: "/ocean/projects/cis250019p/maman/ecg-arrhythmia-classification/data/raw/WFDBRecords"
+  processed_dir: "data/processed"
+  reference_file: "/ocean/projects/cis250019p/maman/ecg-arrhythmia-classification/data/raw/reference_mapping.csv"  # Metadata file with labels and ECG file paths
+  
+# Preprocessing parameters
+preprocessing:
+  target_fs: 250              # Target sampling frequency (Hz)
+  original_fs: 500            # Original sampling frequency (Hz)
+  target_length: 2500         # Target length (10 seconds at 250 Hz)
+  
+  # Filtering
+  filter_lowcut: 0.5          # Bandpass filter low cutoff (Hz)
+  filter_highcut: 40          # Bandpass filter high cutoff (Hz)
+  notch_freq: 50              # Notch filter frequency (50 Hz Europe/Asia, 60 Hz Americas)
+  
+  # Quality control
+  min_std: 0.01               # Minimum standard deviation per lead
+  max_amplitude: 10           # Maximum normalized amplitude
+  
+  # Data split
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15
+  random_seed: 42
+
+# Label mapping (4 classes)
+labels:
+  class_names: ['SB', 'AFIB', 'GSVT', 'SR']
+  num_classes: 4
+  
+  # SNOMED-CT code mapping
+  snomed_mapping:
+    # Sinus Bradycardia
+    '426177001': 'SB'
+    
+    # Atrial Fibrillation (AFIB + Atrial Flutter)
+    '164889003': 'AFIB'
+    '164890007': 'AFIB'
+    
+    # General Supraventricular Tachycardia
+    '426783006': 'GSVT'
+    '713427006': 'GSVT'
+    '233896004': 'GSVT'
+    '233897008': 'GSVT'
+    '427393009': 'GSVT'
+    
+    # Sinus Rhythm (SR + Sinus Irregularity)
+    '426783006': 'SR'
+    '427084000': 'SR'
+
+# Model configuration
+model:
+  type: "transformer"           # Options: 'transformer', 'cnn_transformer'
+  
+  # Transformer parameters
+  d_model: 256                  # Model dimension
+  nhead: 8                      # Number of attention heads
+  num_layers: 6                 # Number of transformer layers
+  dim_feedforward: 1024         # Feedforward dimension
+  dropout: 0.1
+  
+  # Input/Output
+  input_channels: 12            # 12-lead ECG
+  sequence_length: 2500         # Same as target_length
+
+# Training configuration
+training:
+  batch_size: 32
+  epochs: 35
+  learning_rate: 0.00005
+  weight_decay: 0.05
+  dropout: 0.2
+  
+  # Loss function
+  loss: "cross_entropy"         # Options: 'cross_entropy', 'focal_loss'
+  use_class_weights: true       # Balance classes
+  
+  # Optimization
+  optimizer: "adamw"            # Options: 'adam', 'adamw', 'sgd'
+  scheduler: "cosine_with_warmup"  # Better warmup
+  warmup_epochs: 5
+  min_lr: 0.000001  # Set minimum LR for scheduler
+  gradient_clip_val: 0.5  # Tighter clipping
+  # Early stopping
+  patience: 10
+  min_delta: 0.0005
+   # Add label smoothing
+  label_smoothing: 0.1
+  
+  # Checkpointing
+  save_best_only: true
+  save_dir: "outputs/models"
+  
+  # Device
+  device: "cuda"                # Options: 'cuda', 'cpu', 'mps'
+  mixed_precision: true         # Use automatic mixed precision
+
+# Data augmentation
+augmentation:
+  enabled: false
+  
+  # Augmentation techniques
+  time_shift:
+    enabled: false
+    max_shift: 25               # Max shift in samples (100ms at 250Hz)
+    
+  amplitude_scale:
+    enabled: false
+    min_scale: 0.9
+    max_scale: 1.1
+    
+  gaussian_noise:
+    enabled: false
+    noise_level: 0.05           # Noise standard deviation
+    
+  probability: 0.5              # Probability of applying augmentation
+
+# Evaluation
+evaluation:
+  metrics: ['accuracy', 'precision', 'Sensitivity ','Specificity','recall', 'f1', 'auc']
+  save_predictions: true
+  save_confusion_matrix: true
+  
+# Logging
+logging:
+  log_dir: "outputs/logs"
+  tensorboard: true
+  wandb: false                  # Set to true if using Weights & Biases
+  log_interval: 10              # Log every N batches
+
+# Reproducibility
+reproducibility:
+  seed: 42
+  deterministic: true
+  benchmark: false
