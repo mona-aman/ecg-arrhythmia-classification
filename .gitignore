@@ -25,11 +25,6 @@ data/
 Data/
 datasets/
 Datasets/
-outputs/
-output/
-results/
-checkpoints/
-logs/
 wandb/
 runs/
 cache/
@@ -37,7 +32,6 @@ cache/
 .tmp*/
 .tmp*/
 *.tmp
-*.log
 
 # Images/videos
 *.mp4
