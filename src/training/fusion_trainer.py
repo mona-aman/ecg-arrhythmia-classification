@@ -30,8 +30,13 @@ class ECGFusionTrainer:
     def __init__(self,
                  # Model configuration
                  d_model: int = 384,
+                 d_model_2d: int = None,
                  num_classes: int = 4,
+                 num_heads: int = 6,
+                 dim_head: int = 64,
+                 cross_attn_depth: int = 1,
                  fusion_type: str = 'gated',
+                 cosine_sim_attn: bool = False,
                  freeze_encoders: bool = True,
                  
                  # Pre-trained model paths
@@ -44,6 +49,7 @@ class ECGFusionTrainer:
                  
                  # Output
                  output_dir: str = 'outputs/fusion',
+                 exp_name: str = None,
                  device: str = 'auto',
                  
                  # Training hyperparameters
@@ -73,8 +79,13 @@ class ECGFusionTrainer:
         
         # Model configuration
         self.d_model = d_model
+        self.d_model_2d = d_model_2d if d_model_2d is not None else d_model
         self.num_classes = num_classes
+        self.num_heads = num_heads
+        self.dim_head = dim_head
+        self.cross_attn_depth = cross_attn_depth
         self.fusion_type = fusion_type
+        self.cosine_sim_attn = cosine_sim_attn
         self.freeze_encoders = freeze_encoders
         
         # Pre-trained paths
@@ -87,7 +98,9 @@ class ECGFusionTrainer:
         self.output_dir = Path(output_dir)
         
         # Create experiment directory
-        exp_name = f"fusion_{fusion_type}_{int(time.time())}"
+        if exp_name is None:
+            exp_name = f"fusion_{fusion_type}_{int(time.time())}"
+        self.exp_name = exp_name
         self.exp_dir = self.output_dir / exp_name
         self.exp_dir.mkdir(parents=True, exist_ok=True)
         
@@ -161,9 +174,12 @@ class ECGFusionTrainer:
         # Create fusion model
         self.model = create_fusion_model(
             d_model=self.d_model,
+            d_model_2d=self.d_model_2d,
             num_classes=self.num_classes,
             fusion_type=self.fusion_type,
-            freeze_encoders=self.freeze_encoders
+            cross_attn_depth=self.cross_attn_depth,
+            freeze_encoders=self.freeze_encoders,
+            cosine_sim_attn=self.cosine_sim_attn
         )
         
         # Load pre-trained encoders
@@ -352,8 +368,13 @@ class ECGFusionTrainer:
         config = {
             'model': {
                 'd_model': self.d_model,
+                'd_model_2d': self.d_model_2d,
                 'num_classes': self.num_classes,
+                'num_heads': self.num_heads,
+                'dim_head': self.dim_head,
+                'cross_attn_depth': self.cross_attn_depth,
                 'fusion_type': self.fusion_type,
+                'cosine_sim_attn': self.cosine_sim_attn,
                 'freeze_encoders': self.freeze_encoders
             },
             'data': {
