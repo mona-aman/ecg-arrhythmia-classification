@@ -1,0 +1,30 @@
+{
+  "model_type": "1d",
+  "model_size": "small",
+  "batch_size": 8,
+  "num_epochs": 50,
+  "learning_rate": 0.0001,
+  "weight_decay": 0.01,
+  "warmup_epochs": 10,
+  "use_class_weights": true,
+  "augment_train": true,
+  "mixed_precision": true,
+  "gradient_clip_val": 1.0,
+  "patience": 15,
+  "min_delta": 0.001,
+  "device": "cuda",
+  "data_stats": {
+    "train_size": 30941,
+    "val_size": 6630,
+    "test_size": 6631,
+    "total_size": 44202,
+    "num_classes": 4,
+    "class_weights": [
+      0.6541078090667725,
+      1.1301989555358887,
+      1.3997759819030762,
+      1.1467889547348022
+    ],
+    "batch_size": 8
+  }
+}

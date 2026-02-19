@@ -1,0 +1,24 @@
+# Data Processing
+numpy>=1.24.0,<2.0.0
+scipy>=1.10.0
+pandas>=2.0.0
+
+# Machine Learning
+scikit-learn>=1.3.0
+tqdm>=4.65.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Signal Processing
+pywavelets>=1.4.1
+
+# Utilities
+joblib>=1.3.0
+
+# OPTIONAL (uncomment if needed):
+# wfdb>=4.1.0          # For PhysioNet ECG data
+# neurokit2>=0.2.0     # ECG processing
+# tensorboard>=2.13.0  # Training visualization
+# jupyter>=1.0.0       # Notebooks

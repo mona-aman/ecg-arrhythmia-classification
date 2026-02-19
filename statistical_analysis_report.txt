@@ -1,0 +1,137 @@
+================================================================================
+STATISTICAL SIGNIFICANCE TESTING RESULTS
+ECG Arrhythmia Classification - Fusion Model Analysis
+Date: December 16, 2025
+================================================================================
+
+MODEL PERFORMANCE SUMMARY
+--------------------------------------------------------------------------------
+Model                Accuracy     Precision    Recall       F1-Score    
+--------------------------------------------------------------------------------
+Fusion (Epoch 27)    94.35%       94.92%       94.88%       94.88%
+1D Model             93.47%       93.51%       93.47%       93.47%
+2D Model             93.06%       93.13%       93.06%       93.05%
+
+
+PERFORMANCE IMPROVEMENTS
+--------------------------------------------------------------------------------
+Fusion vs 1D Model: +0.88 percentage points (0.94% relative improvement)
+Fusion vs 2D Model: +1.29 percentage points (1.39% relative improvement)
+
+
+McNEMAR'S TEST FOR STATISTICAL SIGNIFICANCE
+================================================================================
+
+Fusion vs 1D Model:
+--------------------------------------------------------------------------------
+McNemar's statistic: 0.5766
+P-value: 0.4477
+Result: NOT SIGNIFICANT (p >= 0.05)
+
+Interpretation: The improvement of the fusion model over the 1D model is not 
+statistically significant at the 0.05 level. This suggests that while the 
+fusion model shows better accuracy, the difference could be due to chance.
+
+
+Fusion vs 2D Model:
+--------------------------------------------------------------------------------
+McNemar's statistic: 1.2101
+P-value: 0.2713
+Result: NOT SIGNIFICANT (p >= 0.05)
+
+Interpretation: The improvement of the fusion model over the 2D model is not 
+statistically significant at the 0.05 level. The observed improvement may not 
+be reliable.
+
+
+BOOTSTRAP CONFIDENCE INTERVALS (95%)
+================================================================================
+
+Fusion Model:
+  Accuracy: 94.35% [95% CI: 92.80% - 95.70%]
+
+1D Model:
+  Accuracy: 93.47% [95% CI: 91.80% - 94.90%]
+
+2D Model:
+  Accuracy: 93.06% [95% CI: 91.40% - 94.60%]
+
+Note: There is considerable overlap in the confidence intervals, which aligns 
+with the McNemar's test results showing no significant differences.
+
+
+KEY FINDINGS
+================================================================================
+
+1. Performance: The fusion model achieves 94.35% accuracy at epoch 27, which 
+   is the highest among the three models.
+
+2. Improvement Magnitude:
+   - 0.88 percentage points better than 1D model
+   - 1.29 percentage points better than 2D model
+
+3. Statistical Significance:
+   - Neither comparison reaches statistical significance (p < 0.05)
+   - P-values are relatively high (0.45 and 0.27)
+
+4. Confidence Intervals:
+   - All three models have overlapping 95% confidence intervals
+   - This confirms the lack of statistically significant differences
+
+
+INTERPRETATION AND RECOMMENDATIONS
+================================================================================
+
+Current Status:
+The fusion model shows numerical improvements over both individual models, but 
+these improvements are not statistically significant. This could be due to:
+
+1. Limited Sample Size: The test set may be too small to detect the differences
+2. High Variance: Individual models may have high prediction variance
+3. Model Similarity: The fusion approach may not differ substantially enough
+4. Natural Variability: The improvements may be within random variation
+
+Recommendations:
+
+1. Increase Test Set Size:
+   - Larger test sets provide more statistical power
+   - Consider cross-validation for more robust estimates
+
+2. Collect More Data:
+   - Additional test samples can help establish significance
+   - Ensure representative sampling across classes
+
+3. Analyze Per-Class Performance:
+   - Some classes may show significant improvements
+   - Class-specific analysis may reveal where fusion helps most
+
+4. Consider Practical Significance:
+   - Even without statistical significance, 0.88-1.29 pp improvements
+     may be clinically meaningful
+   - Context matters: In medical applications, small improvements can be valuable
+
+5. Alternative Statistical Tests:
+   - Consider paired t-tests or Wilcoxon signed-rank tests
+   - Use stratified analysis by difficulty or class
+
+6. Error Analysis:
+   - Investigate which samples fusion gets right vs wrong
+   - Compare error patterns across models
+
+
+CONCLUSION
+================================================================================
+
+The fusion model achieves the highest accuracy (94.35%) among the three 
+approaches, but the improvements over individual 1D and 2D models are not 
+statistically significant (McNemar's test p > 0.05). The overlapping bootstrap 
+confidence intervals further confirm this finding.
+
+While statistical significance was not achieved, the consistent numerical 
+improvements suggest potential practical value. Further investigation with 
+larger test sets and additional analyses is recommended to better understand 
+the fusion model's benefits.
+
+================================================================================
+End of Report
+================================================================================

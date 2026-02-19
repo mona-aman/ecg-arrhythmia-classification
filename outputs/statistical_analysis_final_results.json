@@ -1,0 +1,97 @@
+{
+  "model_performance": {
+    "1d_vit": {
+      "accuracy": 0.9652,
+      "precision": 0.9652,
+      "recall": 0.9652,
+      "f1": 0.9652,
+      "specificity": 0.989,
+      "auc": 0.9916,
+      "class_f1": {
+        "SB": 0.985,
+        "SR": 0.9597,
+        "AFIB": 0.9363,
+        "GSVT": 0.9587
+      }
+    },
+    "fusion": {
+      "accuracy": 0.9435,
+      "precision": 0.9415,
+      "recall": 0.9402,
+      "f1": 0.9403,
+      "specificity": 0.9796,
+      "auc": 0.9926,
+      "class_f1": {
+        "SB": 0.9773,
+        "SR": 0.8963,
+        "AFIB": 0.9149,
+        "GSVT": 0.9409
+      }
+    },
+    "2d_vit": {
+      "accuracy": 0.9263,
+      "precision": 0.9267,
+      "recall": 0.9263,
+      "f1": 0.926,
+      "specificity": 0.9791,
+      "auc": 0.9862,
+      "class_f1": {
+        "SB": 0.9856,
+        "SR": 0.8504,
+        "AFIB": 0.8807,
+        "GSVT": 0.9352
+      }
+    }
+  },
+  "ranking": {
+    "1st": {
+      "model": "1D ViT",
+      "accuracy": 0.9652
+    },
+    "2nd": {
+      "model": "Fusion",
+      "accuracy": 0.9435
+    },
+    "3rd": {
+      "model": "2D ViT",
+      "accuracy": 0.9263
+    }
+  },
+  "performance_gaps": {
+    "1d_vs_fusion_pp": 2.169999999999994,
+    "fusion_vs_2d_pp": 1.7199999999999993,
+    "1d_vs_2d_pp": 3.8899999999999935
+  },
+  "mcnemar_test": {
+    "1d_vs_fusion": {
+      "statistic": 4.9,
+      "pvalue": 0.02685669550752441,
+      "significant": true
+    },
+    "fusion_vs_2d": {
+      "statistic": 2.1880341880341883,
+      "pvalue": 0.1390867297600093,
+      "significant": false
+    },
+    "1d_vs_2d": {
+      "statistic": 13.495327102803738,
+      "pvalue": 0.0002391582755984762,
+      "significant": true
+    }
+  },
+  "bootstrap_ci_95": {
+    "1d_vit": {
+      "lower": 0.953,
+      "upper": 0.976
+    },
+    "fusion": {
+      "lower": 0.928,
+      "upper": 0.957
+    },
+    "2d_vit": {
+      "lower": 0.91,
+      "upper": 0.942
+    }
+  },
+  "recommendation": "Use 1D ViT model - Best overall performance (96.52% accuracy)"
+}

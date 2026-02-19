@@ -694,38 +694,75 @@ class ECGFusionTrainer:
         history_df.to_csv(self.exp_dir / 'training_history.csv', index=False)
     
     def _plot_training_curves(self):
-        """Plot training curves"""
-        fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+        """Plot training curves into separate PNGs (loss, accuracy, val F1)."""
         epochs = range(1, len(self.training_history['train_loss']) + 1)
-        
+
+        def smooth_curve(values, window=5):
+            if len(values) < window:
+                return values
+            series = pd.Series(values)
+            return series.rolling(window=window, min_periods=1).mean().values
+
         # Loss
-        axes[0, 0].plot(epochs, self.training_history['train_loss'], label='Train', alpha=0.6)
-        axes[0, 0].plot(epochs, self.training_history['val_loss'], label='Val', alpha=0.6)
-        axes[0, 0].set_title('Loss')
-        axes[0, 0].set_xlabel('Epoch')
-        axes[0, 0].legend()
-        axes[0, 0].grid(True, alpha=0.3)
-        
+        try:
+            fig, ax = plt.subplots(figsize=(8, 5))
+            ax.plot(epochs, self.training_history['train_loss'], label='Train', alpha=0.6)
+            ax.plot(epochs, smooth_curve(self.training_history['train_loss']), label='Train (smoothed)', alpha=1.0)
+            ax.plot(epochs, self.training_history['val_loss'], label='Val', alpha=0.6)
+            ax.plot(epochs, smooth_curve(self.training_history['val_loss']), label='Val (smoothed)', alpha=1.0)
+            ax.set_title('Loss')
+            ax.set_xlabel('Epoch')
+            ax.set_ylabel('Loss')
+            ax.legend()
+            ax.grid(True, alpha=0.3)
+            loss_path = self.exp_dir / 'training_loss.png'
+            plt.tight_layout()
+            plt.savefig(loss_path, dpi=300, bbox_inches='tight')
+            print(f"Saved training loss plot to {loss_path}")
+        except Exception as e:
+            print(f"Warning: failed to save training loss plot: {e}")
+        finally:
+            plt.close()
+
         # Accuracy
-        axes[0, 1].plot(epochs, self.training_history['train_acc'], label='Train', alpha=0.6)
-        axes[0, 1].plot(epochs, self.training_history['val_acc'], label='Val', alpha=0.6)
-        axes[0, 1].set_title('Accuracy')
-        axes[0, 1].set_xlabel('Epoch')
-        axes[0, 1].legend()
-        axes[0, 1].grid(True, alpha=0.3)
-        
-        # F1 Score
-        axes[1, 0].plot(epochs, self.training_history['val_f1'], label='Val F1', alpha=0.6)
-        axes[1, 0].set_title('F1 Score')
-        axes[1, 0].set_xlabel('Epoch')
-        axes[1, 0].legend()
-        axes[1, 0].grid(True, alpha=0.3)
-        
-        fig.delaxes(axes[1, 1])
-        
-        plt.tight_layout()
-        plt.savefig(self.exp_dir / 'training_curves.png', dpi=300, bbox_inches='tight')
-        plt.close()
+        try:
+            fig, ax = plt.subplots(figsize=(8, 5))
+            ax.plot(epochs, self.training_history['train_acc'], label='Train', alpha=0.6)
+            ax.plot(epochs, smooth_curve(self.training_history['train_acc']), label='Train (smoothed)', alpha=1.0)
+            ax.plot(epochs, self.training_history['val_acc'], label='Val', alpha=0.6)
+            ax.plot(epochs, smooth_curve(self.training_history['val_acc']), label='Val (smoothed)', alpha=1.0)
+            ax.set_title('Accuracy')
+            ax.set_xlabel('Epoch')
+            ax.set_ylabel('Accuracy')
+            ax.legend()
+            ax.grid(True, alpha=0.3)
+            acc_path = self.exp_dir / 'training_accuracy.png'
+            plt.tight_layout()
+            plt.savefig(acc_path, dpi=300, bbox_inches='tight')
+            print(f"Saved training accuracy plot to {acc_path}")
+        except Exception as e:
+            print(f"Warning: failed to save training accuracy plot: {e}")
+        finally:
+            plt.close()
+
+        # Validation F1
+        try:
+            fig, ax = plt.subplots(figsize=(8, 5))
+            ax.plot(epochs, self.training_history['val_f1'], label='Val F1', alpha=0.6)
+            ax.plot(epochs, smooth_curve(self.training_history['val_f1']), label='Val F1 (smoothed)', alpha=1.0)
+            ax.set_title('Validation F1 Score')
+            ax.set_xlabel('Epoch')
+            ax.set_ylabel('F1 Score')
+            ax.legend()
+            ax.grid(True, alpha=0.3)
+            f1_path = self.exp_dir / 'training_val_f1.png'
+            plt.tight_layout()
+            plt.savefig(f1_path, dpi=300, bbox_inches='tight')
+            print(f"Saved validation F1 plot to {f1_path}")
+        except Exception as e:
+            print(f"Warning: failed to save validation F1 plot: {e}")
+        finally:
+            plt.close()
     
     def test(self, checkpoint_path: Optional[str] = None):
         """Test the model"""

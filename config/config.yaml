@@ -2,9 +2,9 @@
 
 # Data paths
 data:
-  raw_dir: "/ocean/projects/cis250019p/maman/ecg-arrhythmia-classification/data/raw/WFDBRecords"
+  raw_dir: "/ocean/projects/cis250085p/shared/ecg-arrhythmia-classification/data/raw/WFDBRecords"
   processed_dir: "data/processed"
-  reference_file: "/ocean/projects/cis250019p/maman/ecg-arrhythmia-classification/data/raw/reference_mapping.csv"  # Metadata file with labels and ECG file paths
+  reference_file: "data/raw/reference_mapping.csv"  # Metadata file with labels and ECG file paths
   
 # Preprocessing parameters
 preprocessing:

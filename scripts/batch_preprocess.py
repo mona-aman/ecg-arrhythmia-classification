@@ -19,7 +19,8 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 from src.data.data_loader import ECGDataLoader
 from src.data.label_mapper import FourClassLabelMapper
-from src.data.preprocessor import ECGPreprocessor
+# Use the no-filter preprocessor as requested
+from src.data.preprocessor import ECGPreprocessor 
 
 # Setup logging
 logging.basicConfig(

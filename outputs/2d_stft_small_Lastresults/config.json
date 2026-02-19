@@ -1,0 +1,32 @@
+{
+  "model_type": "2d",
+  "model_size": "small",
+  "representation_type": "stft",
+  "batch_size": 32,
+  "num_epochs": 50,
+  "learning_rate": 0.0001,
+  "weight_decay": 0.01,
+  "warmup_epochs": 10,
+  "use_class_weights": true,
+  "augment_train": true,
+  "mixed_precision": false,
+  "gradient_clip_val": 1.0,
+  "patience": 15,
+  "min_delta": 0.001,
+  "device": "cuda",
+  "data_stats": {
+    "train_size": 29921,
+    "val_size": 6411,
+    "test_size": 6405,
+    "total_size": 42737,
+    "num_classes": 4,
+    "class_weights": [
+      0.631313145160675,
+      1.103265643119812,
+      1.5262515544891357,
+      1.1704119443893433
+    ],
+    "batch_size": 32,
+    "representation_type": "1d"
+  }
+}

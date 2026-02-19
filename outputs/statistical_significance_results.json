@@ -1,0 +1,54 @@
+{
+  "model_performance": {
+    "fusion": {
+      "accuracy": 0.9435,
+      "precision": 0.9492,
+      "recall": 0.9488,
+      "f1": 0.9488
+    },
+    "1d": {
+      "accuracy": 0.9347,
+      "precision": 0.9351,
+      "recall": 0.9347,
+      "f1": 0.9347
+    },
+    "2d": {
+      "accuracy": 0.9306,
+      "precision": 0.9313,
+      "recall": 0.9306,
+      "f1": 0.9305
+    }
+  },
+  "improvements": {
+    "fusion_vs_1d_pp": 0.880000000000003,
+    "fusion_vs_2d_pp": 1.2900000000000023,
+    "fusion_vs_1d_relative": 94.14785492671479,
+    "fusion_vs_2d_relative": 138.62024500322397
+  },
+  "mcnemar_test": {
+    "fusion_vs_1d": {
+      "statistic": 0.5765765765765766,
+      "pvalue": 0.44765733086275317,
+      "significant": false
+    },
+    "fusion_vs_2d": {
+      "statistic": 1.2100840336134453,
+      "pvalue": 0.27131547988984483,
+      "significant": false
+    }
+  },
+  "bootstrap_ci": {
+    "fusion": {
+      "lower": 0.928,
+      "upper": 0.957
+    },
+    "1d": {
+      "lower": 0.918,
+      "upper": 0.949
+    },
+    "2d": {
+      "lower": 0.914,
+      "upper": 0.945
+    }
+  }
+}

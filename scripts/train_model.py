@@ -75,9 +75,10 @@ def main():
     parser.add_argument('--config', type=str,
                        help='YAML configuration file (overrides command line args)')
     
+    # Around line 26, after --model-size argument, add:
     parser.add_argument('--representation-type', type=str, default='mel',
-                   choices=['mel', 'stft', 'cwt', 'stransform', 'mfcc', 'chroma', 'spectral_centroid'],
-                   help='2D representation method for 2D model')
+                    choices=['mel', 'stft', 'cwt', 'stransform', 'mfcc', 'chroma', 'spectral_centroid'],
+                    help='2D representation method (only used for 2D models)')
     
     args = parser.parse_args()
     
@@ -97,6 +98,7 @@ def main():
         data_dir=args.data_dir,
         output_dir=args.output_dir,
         device=args.device,
+        representation_type=args.representation_type,
         
         # Training hyperparameters
         batch_size=args.batch_size,
